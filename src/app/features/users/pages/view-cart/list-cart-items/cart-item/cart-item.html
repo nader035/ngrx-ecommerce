@@ -1,0 +1,53 @@
+<div class="grid grid-cols-[3fr_1fr_1fr]">
+  <div class="flex items-center gap-4">
+    <img
+      [src]="item().product.imageUrl"
+      [alt]="item().product.name"
+      class="h-24 w-24 object-cover rounded-xl"
+      [style.view-transition-name]="'product-image-' + item().product.id"
+    />
+    <div>
+      <h1 class="text-xl font-bold">{{ item().product.name }}</h1>
+      <p class="text-lg text-gray-900">{{ item().product.price | currency : 'USD' }}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <button
+      class="flex items-center justify-center"
+      [disabled]="item().quantity > 1 ? false : true"
+      matIconButton
+      (click)="store.removeFromCart(item().product)"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <span class="text-xl"> {{ item().quantity }} </span>
+    <button
+      class="flex items-center justify-center"
+      matIconButton
+      (click)="store.addToCart(item().product)"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="flex flex-col items-end">
+    <p class="font-bold text-lg">{{ total() | currency : 'USD' }}</p>
+    <div class="actions flex justify-end gap-2">
+      <button
+        matIconButton
+        (click)="
+          store.removeFromCart(item().product, item().quantity); store.addToWishList(item().product)
+        "
+      >
+        <mat-icon>favorite_border</mat-icon>
+      </button>
+      <button
+        matIconButton
+        class="danger"
+        (click)="store.removeFromCart(item().product, item().quantity)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

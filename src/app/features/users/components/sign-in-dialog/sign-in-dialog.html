@@ -1,0 +1,43 @@
+<div class="max-w-[400px] p-8 flex flex-col">
+  <div class="flex justify-between mb-4">
+    <div>
+      <h2 class="text-xl font-medium mb-1">Sign in</h2>
+      <p class="text-sm text-gray-500">Sign in to your account to continue shopping</p>
+    </div>
+    <button matIconButton tabIndex="-1" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+    <mat-form-field class="mb-4">
+      <input matInput placeholder="Enter Your Email" type="email" formControlName="email" />
+      <mat-icon matPrefix>email</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="mb-6">
+      <input
+        matInput
+        placeholder="Enter Your password"
+        [type]="passwordVisible() ? 'text' : 'password'"
+        formControlName="password"
+      />
+      <mat-icon matPrefix>lock</mat-icon>
+      <button
+        matIconButton
+        matSuffix
+        (click)="passwordVisible.set(!passwordVisible())"
+        class="mr-2"
+      >
+        <mat-icon [fontIcon]="passwordVisible() ? 'visibility_off' : 'visibility'"></mat-icon>
+      </button>
+    </mat-form-field>
+    <button matButton="filled" class="w-full" type="submit">Sign in</button>
+  </form>
+  <p class="text-sm text-gray-500 mt-2 text-center">
+    Don't Have an Account?
+    <a
+      class="text-blue-600 hover:text-blue-800 cursor-pointer font-semibold"
+      (click)="openSignUpDialog()"
+      >Sign Up</a
+    >
+  </p>
+</div>

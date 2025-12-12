@@ -1,0 +1,11 @@
+<div
+  class="flex items-center gap-2 w-full bg-white p-3 border rounded-lg mb-4"
+  [class]="inStock() ? 'border-gray-300' : 'border-red-300'"
+>
+  <mat-icon
+    class="!text-white rounded-full !scale-75"
+    [class]="inStock() ? '!bg-black' : '!bg-red-400'"
+    >done</mat-icon
+  >
+  <span class="text-xs">@if (inStock()) {In stock and ready to ship}@else {Out of stock} </span>
+</div>

@@ -1,0 +1,70 @@
+<div class="max-w-[400px] p-8 flex flex-col">
+  <div class="flex justify-between mb-4">
+    <div>
+      <h2 class="text-xl font-medium mb-1">Sign in</h2>
+      <p class="text-sm text-gray-500">Sign in to your account to continue shopping</p>
+    </div>
+    <button matIconButton tabIndex="-1" mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+    <mat-form-field class="mb-4">
+      <input type="text" matInput placeholder="Enter your Name" formControlName="name" />
+      <mat-icon matPrefix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="mb-4">
+      <input type="text" matInput placeholder="Enter your Email" formControlName="email" />
+      <mat-icon matPrefix>email</mat-icon>
+    </mat-form-field>
+    <div class="" formGroupName="passwords">
+      <mat-form-field class="mb-4">
+        <input
+          matInput
+          placeholder="Enter Your password"
+          [type]="passwordVisible() ? 'text' : 'password'"
+          formControlName="password"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          matIconButton
+          matSuffix
+          (click)="passwordVisible.set(!passwordVisible())"
+          class="mr-2"
+        >
+          <mat-icon [fontIcon]="passwordVisible() ? 'visibility_off' : 'visibility'"></mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="mb-4">
+        <input
+          matInput
+          placeholder="Enter Your password"
+          [type]="confirmPasswordVisible() ? 'text' : 'password'"
+          formControlName="confirmPassword"
+        />
+        <mat-icon matPrefix>lock</mat-icon>
+        <button
+          matIconButton
+          matSuffix
+          (click)="confirmPasswordVisible.set(!confirmPasswordVisible())"
+          class="mr-2"
+        >
+          <mat-icon
+            [fontIcon]="confirmPasswordVisible() ? 'visibility_off' : 'visibility'"
+          ></mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <button matButton="filled" class="w-full" [disabled]="false">
+      {{ true ? 'Creating Account' : 'Create Account' }}
+    </button>
+  </form>
+  <p class="text-sm text-gray-500 mt-2 text-center">
+    Do You Have an Account?
+    <a
+      class="text-blue-600 hover:text-blue-800 cursor-pointer font-semibold"
+      (click)="openSignInDialog()"
+      >Sign In</a
+    >
+  </p>
+</div>

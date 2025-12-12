@@ -1,0 +1,32 @@
+<div class="mx-auto max-w-[1200px] py-6 px-4">
+  <app-back-button navigateTo="/users/cart" class="mb-6">Back to cart</app-back-button>
+  <h1 class="text-3xl font-bold mb-6">Checkout</h1>
+  <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+    <div class="lg:col-span-3 flex flex-col gap-6">
+      <app-shipping-form />
+      <app-payment-form />
+    </div>
+    <div class="col-span-2">
+      <app-summerize-order>
+        <div checkoutItems>
+          @for (item of store.cartItems(); track $index) {
+          <div class="flex items-center justify-between w-full">
+            <div class="">{{ item.product.name }} x {{ item.quantity }}</div>
+            {{ item.product.price * item.quantity | currency : 'USD' }}
+          </div>
+          }
+        </div>
+
+        <button
+          actionButton
+          matButton="filled"
+          class="w-full"
+          [disabled]="store.loading()"
+          (click)="store.placeOrder()"
+        >
+          {{ store.loading() ? 'Processing...' : 'Place Order' }}
+        </button>
+      </app-summerize-order>
+    </div>
+  </div>
+</div>

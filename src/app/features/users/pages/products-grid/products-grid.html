@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+  <mat-sidenav
+    class="transition-all duration-300"
+    [mode]="isSmallScreen() ? 'over' : 'side'"
+    [opened]="store.isSidenavOpen()"
+  >
+    <div class="p-6">
+      <h2 class="text-lg text-gray-900">Categories</h2>
+      <mat-nav-list>
+        @for (cat of categories(); track $index) {
+        <mat-list-item
+          [activated]="cat === category()"
+          class="my-2"
+          [routerLink]="['/users', 'products', cat]"
+        >
+          <span matListItemTitle [class]="cat === category() ? '!text-white' : null">{{
+            cat | titlecase
+          }}</span>
+        </mat-list-item>
+        }
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="bg-gray-100 p-6 h-full">
+    <h1 class="text-2xl font-bold text-gray-700 mb-1">{{ category() | titlecase }}</h1>
+    <p class="text-base text-gray-500 mb-6">{{ store.filteredProducts().length }} products found</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      @for (product of store.filteredProducts(); track product.id) {
+      <app-product-card [product]="product" class="relative">
+        <app-toggle-wishlist-button
+          [product]="product"
+          class="!absolute top-3 right-3 z-10 !bg-white transition-all duration-300 border-0 shadow-md hover:shadow-lg hover:scale-110 rounded-md"
+          (click)="$event.stopPropagation()"
+          [style.view-transition-name]="'wishlist-button-' + product.id"
+        ></app-toggle-wishlist-button>
+      </app-product-card>
+      }
+    </div></mat-sidenav-content
+  >
+</mat-sidenav-container>

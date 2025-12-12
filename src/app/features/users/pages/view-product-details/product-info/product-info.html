@@ -1,0 +1,47 @@
+<p class="bg-gray-100 text-xs rounded-full w-fit px-2 py-1 mb-2">
+  {{ product().category | titlecase }}
+</p>
+<h1 class="text-2xl font-extrabold mb-2">{{ product().name }}</h1>
+<app-star-rating [rating]="product().rating"
+  >{{ product().rating }} ({{ product().reviewCount }} reviews)</app-star-rating
+>
+<p class="text-3xl font-extrabold mb-4 mt-4">{{ product().price | currency : 'USD' }}</p>
+
+<app-stock-status [inStock]="product().inStock"></app-stock-status>
+<h3 class="font-semibold mb-2">Description</h3>
+<p class="text-sm text-gray-600 mb-4">{{ product().description }}</p>
+<mat-divider></mat-divider>
+<div class="flex items-center mt-6 gap-2 mb-4">
+  <span class="font-semibold">Quantity:</span>
+  <div class="flex items-center gap-2">
+    <button matIconButton (click)="quantity.set(quantity() - 1)" [disabled]="quantity() <= 1">
+      <mat-icon>remove</mat-icon>
+    </button>
+    {{ quantity() }}
+    <button matIconButton (click)="quantity.set(quantity() + 1)">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+<div class="flex w-full gap-3 mb-4">
+  <button matButton="filled" class="w-2/3" (click)="store.addToCart(product(), quantity())">
+    <mat-icon>shopping_cart</mat-icon>
+    Add to cart
+  </button>
+  <app-toggle-wishlist-button [product]="product()"></app-toggle-wishlist-button>
+  <button matIconButton>
+    <mat-icon>share</mat-icon>
+  </button>
+</div>
+<mat-divider></mat-divider>
+<div class="flex flex-col mt-4 gap-2">
+  <div class="flex items-center gap-2 text-xs text-gray-700">
+    <mat-icon class="scale-90">local_shipping</mat-icon>Free shipping on orders over $50
+  </div>
+  <div class="flex items-center gap-2 text-xs text-gray-700">
+    <mat-icon class="scale-90">autorenew</mat-icon>30-day return policy
+  </div>
+  <div class="flex items-center gap-2 text-xs text-gray-700">
+    <mat-icon class="scale-90">shield</mat-icon>2-year warranty included
+  </div>
+</div>

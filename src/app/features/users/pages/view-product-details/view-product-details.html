@@ -1,0 +1,17 @@
+<div class="max-w-[1200px] px-4 py-6 mx-auto">
+  <app-back-button [navigateTo]="backRoute()" class="mb-6">Back to Products</app-back-button>
+  @if (store.selectedProduct() ; as product) {
+  <div class="flex gap-8 max-md:flex-col mb-6">
+    <img
+      [src]="store.selectedProduct()?.imageUrl"
+      [alt]="store.selectedProduct()?.name"
+      class="w-[500px] max-md:w-full h-[550px] max-md:h-full object-cover rounded-lg"
+      [style.view-transition-name]="'product-image-' + product.id"
+    />
+    <div class="flex-1">
+      <app-product-info [product]="product"></app-product-info>
+    </div>
+  </div>
+  <app-view-reviews [product]="product"></app-view-reviews>
+  }
+</div>
